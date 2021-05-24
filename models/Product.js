@@ -21,7 +21,7 @@ Product.init(
       allowNull: false,
       primaryKey: true,
       validate: {
-        len: [17]
+        len: [1,17]
       }
     },
     price: {
@@ -41,6 +41,7 @@ Product.init(
     },
     category_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: 'category',
         key: 'id'

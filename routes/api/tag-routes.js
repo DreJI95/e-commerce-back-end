@@ -6,17 +6,15 @@ const { Tag, Product, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all tags & its associated Product data
   Tag.findAll({
-    attributes: 
-    { include: [
-      { 
-        model: Product,
-        attributes: ['id','product_name']
-      }
-    ]}
+    include: [
+      {
+        model: Product, as: "tagged_product",
+        attributes: ['id','product_name'],
+    }]
   })
   .then(dbTagData => res.json(dbTagData))
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -27,13 +25,11 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    attributes: 
-    { include: [
-      { 
-        model: Product,
-        attributes: ['id','product_name']
-      }
-    ]}
+    include: [
+      {
+        model: Product, as: "tagged_product",
+        attributes: ['id','product_name'],
+    }]
   })
   .then(dbTagData => {
     if (!dbTagData) {
@@ -43,7 +39,7 @@ router.get('/:id', (req, res) => {
     res.json(dbTagData);
   })
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -55,7 +51,7 @@ router.post('/', (req, res) => {
   })
   .then(dbTagData => res.json(dbTagData))
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -75,7 +71,7 @@ router.put('/:id', (req, res) => {
     res.json(dbTagData);
   })
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -95,7 +91,7 @@ router.delete('/:id', (req, res) => {
     res.json(dbTagData);
   })
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });

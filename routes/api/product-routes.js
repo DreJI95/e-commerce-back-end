@@ -7,21 +7,20 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all products & its associated Category and Tag data
   Product.findAll({
-    attributes: 
-    { include: [
+    attributes: ['id','product_name','price','stock','category_id'],
+    include: [
       { 
         model: Category,
         attributes: ['id','category_name']
       },
       {
-        model: Tag,
-        attributes: ['id','tag_name']
-      }
-    ]}
+          model: Tag, as: "tagged_product",
+          attributes: ['id','tag_name'],
+      }]
   })
   .then(dbProductData => res.json(dbProductData))
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -33,17 +32,15 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    attributes: 
-    { include: [
+    include: [
       { 
         model: Category,
         attributes: ['id','category_name']
       },
       {
-        model: Tag,
-        attributes: ['id','tag_name']
-      }
-    ]}
+        model: Tag, as: "tagged_product",
+        attributes: ['id','tag_name'],
+    }]
   })
   .then(dbProductData => {
     if (!dbProductData) {
@@ -53,7 +50,7 @@ router.get('/:id', (req, res) => {
     res.json(dbProductData);
   })
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -86,11 +83,12 @@ router.post('/', (req, res) => {
         return ProductTag.bulkCreate(productTagIdArr);
       }
       // if no product tags, just respond
-      res.status(200).json(product);
+      res.send(product,res.status(200).json(product));
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
       console.log(err);
+      res.send(`<p>`+err+`</p>`);
       res.status(400).json(err);
     });
 });
@@ -133,6 +131,7 @@ router.put('/:id', (req, res) => {
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((err) => {
       // console.log(err);
+      res.send(`<p>`+err+`</p>`);
       res.status(400).json(err);
     });
 });
@@ -152,7 +151,7 @@ router.delete('/:id', (req, res) => {
     res.json(dbProductData);
   })
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });

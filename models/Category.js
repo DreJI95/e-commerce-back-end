@@ -16,7 +16,7 @@ Category.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [17]
+        len: [1,17]
       }
     },
   },

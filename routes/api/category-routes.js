@@ -6,17 +6,16 @@ const { Category, Product } = require('../../models');
 router.get('/', (req, res) => {
   // find all categories & its associated Products
   Category.findAll({
-    attributes: 
-    { include: [
+    include: [
       { 
         model: Product,
         attributes: ['id','product_name']
       }
-    ]}
+    ]
   })
   .then(dbCategoryData => res.json(dbCategoryData))
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -27,23 +26,22 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    attributes: 
-    { include: [
+    attribute:['id','category_name', 'created_at'],
+    include: [
       { 
         model: Product,
         attributes: ['id','product_name']
-      }
-    ]}
+      }]
   })
   .then(dbCategoryData => {
-    if (!CategortData) {
+    if (!dbCategoryData) {
       res.status(404).json({ message: 'No category found with this id' });
       return;
     }
     res.json(dbCategoryData);
   })
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -55,7 +53,7 @@ router.post('/', (req, res) => {
   })
   .then(dbCategoryData => res.json(dbCategoryData))
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -68,14 +66,14 @@ router.put('/:id', (req, res) => {
     }
   })
   .then(dbCategoryData => {
-    if (!CategortData) {
+    if (!dbCategoryData) {
       res.status(404).json({ message: 'No category found with this id' });
       return;
     }
     res.json(dbCategoryData);
   })
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
@@ -88,14 +86,14 @@ router.delete('/:id', (req, res) => {
     }
   })
   .then(dbCategoryData => {
-    if (!CategortData) {
+    if (!dbCategoryData) {
       res.status(404).json({ message: 'No category found with this id' });
       return;
     }
     res.json(dbCategoryData);
   })
   .catch(err => {
-    res.send(`<p>`,err,`</p>`);
+    res.send(`<p>`+err+`</p>`);
     res.status(500).json(err);
   })
 });
