@@ -19,7 +19,12 @@
      1) After cloning the code base enter the "npm install command". 2) Run the "mysql -u root -p" command. 3) Enter "source db/schema.sql" to build the database. 4) Then exit to the git bash and enter the command "node seeds/index.js. 5) Lastly enter npm start to start running the server. 6) You will need an API endpoint tool to interact with differect CRUD commands.
 
   # Usage 
-     -Demo link: https://github.com/DreJI95/e-commerce-back-end/tree/main/demos
+  Command line: https://drive.google.com/file/d/11YeTLt0FEAktexBgOBFcktUsbI-9Kh5y/view?usp=sharing
+  Get one: https://drive.google.com/file/d/1l-1pkh2PK17PuCT5o6Gy8hIbkBz-gWrE/view?usp=sharing
+  Get all: https://drive.google.com/file/d/13NH1Pvzh3-u0v_PsNK5-pB0QdbXb17p1/view?usp=sharing
+  Delete: https://drive.google.com/file/d/1USFprtqQPDS3P-b0SC_fEgOdJEFADgNq/view?usp=sharing
+  Demos1: https://drive.google.com/file/d/11bpXUzFaeMRQANA6z4gahwZilrvyT8ov/view?usp=sharing
+  Demos2: https://drive.google.com/file/d/1KNs3fQbQdzL7JrfUgLE6EarHpWvWFNi2/view?usp=sharing
 
   # License
      MIT: https://choosealicense.com/licenses/mit/
